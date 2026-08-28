@@ -16,20 +16,31 @@ impl Repository {
     pub async fn list_assets(&self) -> sqlx::Result<Vec<Asset>> {
         sqlx::query_as!(
             Asset,
-            "SELECT id, name, unit_value
-             FROM assets;"
+            "SELECT id, name, ticker, asset_type, quantity, unit_value
+             FROM assets
+             ORDER BY id;"
         )
         .fetch_all(&self.db)
         .await
     }
 
-    pub async fn create_asset(&self, name: String, unit_value: f64) -> sqlx::Result<Asset> {
+    pub async fn create_asset(
+        &self,
+        name: String,
+        ticker: String,
+        asset_type: String,
+        quantity: f64,
+        unit_value: f64,
+    ) -> sqlx::Result<Asset> {
         sqlx::query_as!(
             Asset,
-            "INSERT INTO assets (name, unit_value)
-             VALUES ($1, $2)
-             RETURNING id, name, unit_value;",
+            "INSERT INTO assets (name, ticker, asset_type, quantity, unit_value)
+             VALUES ($1, $2, $3, $4, $5)
+             RETURNING id, name, ticker, asset_type, quantity, unit_value;",
             name,
+            ticker,
+            asset_type,
+            quantity,
             unit_value
         )
         .fetch_one(&self.db)
@@ -40,17 +51,26 @@ impl Repository {
         &self,
         asset_id: i64,
         name: Option<String>,
+        ticker: Option<String>,
+        asset_type: Option<String>,
+        quantity: Option<f64>,
         unit_value: Option<f64>,
     ) -> sqlx::Result<Option<Asset>> {
         sqlx::query_as!(
             Asset,
             "UPDATE assets
              SET name=COALESCE($2, name),
-                 unit_value=COALESCE($3, unit_value)
+                 ticker=COALESCE($3, ticker),
+                 asset_type=COALESCE($4, asset_type),
+                 quantity=COALESCE($5, quantity),
+                 unit_value=COALESCE($6, unit_value)
              WHERE id=$1
-             RETURNING id, name, unit_value;",
+             RETURNING id, name, ticker, asset_type, quantity, unit_value;",
             asset_id,
             name,
+            ticker,
+            asset_type,
+            quantity,
             unit_value
         )
         .fetch_optional(&self.db)
