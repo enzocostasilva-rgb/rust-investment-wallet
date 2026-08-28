@@ -40,8 +40,18 @@ jobs:
       - name: Cache Cargo
         uses: Swatinem/rust-cache@v2
 
+      - name: Install SQLx CLI
+        run: cargo install sqlx-cli --no-default-features --features postgres
+       
+      - name: Run database migrations
+        run: sqlx migrate run
+
       - name: Check
         run: cargo check
+
+      - name: Test
+        run: cargo test
+
 
       - name: Test
         run: cargo test
