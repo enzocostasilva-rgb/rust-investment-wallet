@@ -5,5 +5,8 @@ expression: updated_asset
 {
   "id": 1,
   "name": "Ethereum",
-  "unit_value": 20.0
+  "ticker": "ETH",
+  "asset_type": "CRYPTO",
+  "quantity": 2.0,
+  "unit_value": 20000.0
 }
