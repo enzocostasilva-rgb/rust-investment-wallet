@@ -10,6 +10,12 @@ pub struct Asset {
     pub unit_value: f64,
 }
 
+impl Asset {
+    pub fn total_value(&self) -> f64 {
+        self.quantity * self.unit_value
+    }
+}
+
 pub struct UserRecord {
     pub id: i64,
     pub username: String,
