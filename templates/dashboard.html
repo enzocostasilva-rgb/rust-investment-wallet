@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Minha Carteira de Investimentos</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            color: #1f2937;
+        }
+
+        header {
+            background: #ec0000;
+            color: white;
+            padding: 24px;
+        }
+
+        header h1 {
+            margin: 0 0 8px;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        }
+
+        .total {
+            font-size: 32px;
+            font-weight: bold;
+            color: #ec0000;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f9fafb;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 30px;
+            color: #6b7280;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Minha Carteira de Investimentos</h1>
+    <p>Olá, {{ username }}!</p>
+</header>
+
+<main>
+
+    <section class="card">
+        <h2>Patrimônio total</h2>
+
+        <div class="total">
+            R$ {{ total_value }}
+        </div>
+    </section>
+
+    <section class="card">
+        <h2>Meus investimentos</h2>
+
+        {% if assets.is_empty() %}
+
+            <div class="empty">
+                Nenhum investimento cadastrado.
+            </div>
+
+        {% else %}
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ativo</th>
+                        <th>Ticker</th>
+                        <th>Tipo</th>
+                        <th>Quantidade</th>
+                        <th>Valor unitário</th>
+                        <th>Valor total</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                {% for asset in assets %}
+
+                    <tr>
+                        <td>{{ asset.name }}</td>
+                        <td>{{ asset.ticker }}</td>
+                        <td>{{ asset.asset_type }}</td>
+                        <td>{{ asset.quantity }}</td>
+                        <td>R$ {{ asset.unit_value }}</td>
+                        <td>R$ {{ asset.total_value() }}</td>
+                    </tr>
+
+                {% endfor %}
+
+                </tbody>
+            </table>
+
+        {% endif %}
+
+    </section>
+
+</main>
+
+</body>
+</html>
