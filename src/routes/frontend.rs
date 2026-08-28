@@ -25,11 +25,21 @@ pub fn router() -> Router<AppState> {
 #[template(path = "login.html")]
 struct LoginPage;
 
+#[derive(Clone)]
+struct DashboardAsset {
+    name: String,
+    ticker: String,
+    asset_type: String,
+    quantity: f64,
+    unit_value: f64,
+    total_value: f64,
+}
+
 #[derive(Template)]
 #[template(path = "dashboard.html")]
 struct DashboardPage {
     username: String,
-    assets: Vec<Asset>,
+    assets: Vec<DashboardAsset>,
     total_value: f64,
 }
 
@@ -71,16 +81,33 @@ async fn index(
         Some(user) => {
             let assets = repository.list_assets().await?;
 
-            let total_value: f64 = assets
-                .iter()
-                .map(|asset| asset.total_value())
-                .sum();
+let dashboard_assets: Vec<DashboardAsset> = assets
+    .into_iter()
+    .map(|asset| {
+        let total_value = asset.total_value();
 
-            let page = DashboardPage {
-                username: user.username().to_string(),
-                assets,
-                total_value,
-            };
+        DashboardAsset {
+            name: asset.name,
+            ticker: asset.ticker,
+            asset_type: asset.asset_type,
+            quantity: asset.quantity,
+            unit_value: asset.unit_value,
+            total_value,
+        }
+    })
+    .collect();
+
+let total_value: f64 = dashboard_assets
+    .iter()
+    .map(|asset| asset.total_value)
+    .sum();
+
+let page = DashboardPage {
+    username: user.username().to_string(),
+    assets: dashboard_assets,
+    total_value,
+};
+
 
             Ok(Html(page.render()?).into_response())
         }
