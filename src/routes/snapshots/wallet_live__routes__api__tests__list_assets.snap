@@ -6,6 +6,9 @@ expression: assets
   {
     "id": 1,
     "name": "Bitcoin",
-    "unit_value": 10.0
+    "ticker": "BTC",
+    "asset_type": "CRYPTO",
+    "quantity": 0.5,
+    "unit_value": 100000.0
   }
 ]
