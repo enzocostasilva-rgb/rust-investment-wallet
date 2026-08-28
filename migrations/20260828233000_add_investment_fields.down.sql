@@ -1,0 +1,4 @@
+ALTER TABLE assets
+    DROP COLUMN IF EXISTS ticker,
+    DROP COLUMN IF EXISTS asset_type,
+    DROP COLUMN IF EXISTS quantity;
