@@ -2,17 +2,15 @@
 
 Aplicação Fullstack de uma Carteira de Investimentos, desenvolvida em Rust como projeto de conclusão do Santander Bootcamp de Rust AI Developer.
 
-O projeto permite cadastrar, consultar e atualizar ativos de investimento, utilizando uma API REST, banco de dados PostgreSQL, autenticação e uma interface web.
+O projeto permite cadastrar, consultar e atualizar ativos de investimento por meio de uma API REST, utilizando PostgreSQL, autenticação e interface web.
 
 📋 Sobre o projeto
 
-A aplicação foi desenvolvida a partir do projeto-base da Digital Innovation One:
-
-rust-fullstack-carteira-investimentos
+A aplicação foi desenvolvida a partir do projeto-base disponibilizado pela Digital Innovation One (DIO).
 
 Durante o desafio, o projeto foi evoluído para representar os investimentos com informações mais completas.
 
-Cada ativo pode possuir:
+Cada ativo possui:
 
 Nome do ativo;
 Ticker;
@@ -20,18 +18,16 @@ Tipo do ativo;
 Quantidade;
 Valor unitário.
 🚀 Melhorias implementadas
-
-Além da estrutura original do projeto, foram implementadas as seguintes melhorias:
-
 Cadastro completo de investimentos
 
 Os ativos passaram a armazenar:
 
-name — nome do ativo;
-ticker — código do ativo, como BTC ou ETH;
-asset_type — tipo do investimento;
-quantity — quantidade de unidades;
-unit_value — valor de cada unidade.
+Campo	Descrição
+name	Nome do ativo
+ticker	Código do ativo, como BTC ou ETH
+asset_type	Tipo do investimento
+quantity	Quantidade de unidades
+unit_value	Valor de cada unidade
 Validação dos dados
 
 Foram adicionadas validações para impedir dados inválidos, incluindo:
@@ -45,7 +41,7 @@ Quantidade menor ou igual a zero;
 Valor unitário menor ou igual a zero;
 Valores numéricos inválidos.
 
-Também foi implementada a normalização dos dados, como remoção de espaços desnecessários e conversão do ticker para letras maiúsculas.
+Também foi implementada a normalização dos dados, como remoção de espaços desnecessários e conversão do ticker e tipo do ativo para letras maiúsculas.
 
 Testes automatizados
 
@@ -76,12 +72,9 @@ GitHub Actions
 
 A aplicação utiliza autenticação baseada em usuário, senha, cookies e JWT.
 
-As senhas são armazenadas utilizando hash, e o token de autenticação é utilizado para manter o usuário autenticado durante a navegação.
+As senhas são armazenadas utilizando hash, enquanto o token JWT é utilizado para manter o usuário autenticado durante a navegação.
 
 📡 API
-
-A API possui operações relacionadas aos ativos:
-
 Listar ativos
 GET /assets
 
@@ -118,9 +111,9 @@ Exemplo:
 
 O projeto utiliza PostgreSQL.
 
-As alterações de estrutura são controladas por migrations do SQLx.
+As alterações da estrutura do banco são controladas por migrations do SQLx.
 
-A tabela assets possui os principais campos:
+A tabela assets possui os seguintes campos principais:
 
 Campo	Descrição
 id	Identificador do ativo
@@ -131,27 +124,32 @@ quantity	Quantidade de unidades
 unit_value	Valor unitário
 🧪 Testes
 
-O projeto possui testes automatizados para as principais operações da API.
+O projeto possui testes automatizados para as principais operações da aplicação.
 
-Os testes podem ser executados utilizando:
+Para executar os testes localmente:
 
 cargo test
 
 
-A integração contínua também é realizada pelo GitHub Actions, garantindo que o projeto seja compilado e validado automaticamente.
+A integração contínua é realizada pelo GitHub Actions, que realiza a compilação e validação automatizada do projeto.
+
+Status da validação
+
+O workflow do GitHub Actions foi executado com sucesso após as alterações realizadas no projeto.
 
 ⚙️ Como executar
 
-É necessário possuir:
+Para executar o projeto localmente, é necessário possuir:
 
 Rust;
 Cargo;
 Docker;
 PostgreSQL.
 
-Clone o repositório:
+Clone este repositório:
 
-git clone (https://github.com/digitalinnovationone/rust-fullstack-carteira-investimentos.git)
+git clone https://github.com/enzocostasilva-rgb/rust-investment-wallet.git
+cd rust-investment-wallet
 
 
 Inicie os serviços necessários utilizando Docker conforme a configuração do projeto.
@@ -166,7 +164,7 @@ Para executar os testes:
 cargo test
 
 
-Como o desenvolvimento deste desafio foi realizado em um ambiente público sem acesso local ao Rust e ao Docker, a validação principal da compilação e dos testes foi realizada por meio do GitHub Actions.
+Durante o desenvolvimento deste desafio, as alterações foram realizadas diretamente pelo GitHub devido à utilização de um computador público, sem acesso ao ambiente local de desenvolvimento. A compilação e validação do projeto foram acompanhadas por meio do GitHub Actions.
 
 📚 O que aprendi
 
@@ -184,14 +182,22 @@ Criação de testes automatizados;
 Utilização do Git e GitHub;
 Utilização do GitHub Actions para integração contínua.
 
-Também aprendi a evoluir um projeto existente de forma incremental, mantendo os testes e verificando as alterações por meio do CI.
+Também aprendi a evoluir um projeto existente de forma incremental, realizando alterações no modelo de dados, API, banco de dados e testes, verificando continuamente se o projeto permanecia funcional.
 
 🎯 Objetivo do desafio
 
-Este projeto foi desenvolvido como parte do desafio de conclusão do Santander Bootcamp de Rust AI Developer, utilizando o projeto-base disponibilizado pela Digital Innovation One como referência.
+Este projeto foi desenvolvido como parte do desafio de conclusão do Santander Bootcamp de Rust AI Developer.
 
-A principal evolução realizada foi transformar o cadastro básico de ativos em uma estrutura mais completa de investimentos, adicionando ticker, tipo, quantidade, validações e testes.
+O projeto-base disponibilizado pela Digital Innovation One foi utilizado como referência para o desenvolvimento.
 
+A principal evolução realizada foi transformar o cadastro básico de ativos em uma estrutura mais completa de investimentos, adicionando:
+
+Ticker;
+Tipo de ativo;
+Quantidade;
+Validações;
+Testes automatizados;
+Migration para atualização do banco de dados.
 👨‍💻 Autor
 
 Enzo Costa Silva
